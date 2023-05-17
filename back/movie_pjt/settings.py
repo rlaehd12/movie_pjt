@@ -32,8 +32,21 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     #local
+    'accounts',
 
+    'rest_framework',
     'corsheaders', # CORS 관련 추가
+
+    # registration
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+    # auth
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+
     # default
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +55,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+    ],
+
+    # spectacular Settings
+    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',     # CORS 관련 추가
@@ -137,3 +167,5 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080'
 ]
 # CORS_ALLOWED_ALL_ORIGINS = True
+
+AUTH_USER_MODEL = 'accounts.User'
