@@ -56,6 +56,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# 회원가입시 토큰 발급 =============
+REST_AUTH = {
+    'SESSION_LOGIN' : False,
+}
+
+# 하나의 컨텐츠로 여러 개의 도메인에 등록하고 싶을 때 사용, 첫번째 사이트다 라고 알려줌
+SITE_ID = 1
+# =======================================
+
 REST_FRAMEWORK = {
     # Authentication
     'DEFAULT_AUTHENTICATION_CLASSES': [
