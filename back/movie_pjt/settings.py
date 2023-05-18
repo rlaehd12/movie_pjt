@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     #local
     'accounts',
+    'movies',
 
     'rest_framework',
     'corsheaders', # CORS 관련 추가
