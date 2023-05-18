@@ -7,7 +7,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .seralizers import UserDetailSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+
+from .serializers import UserDetailSerializer
 
 
 # Create your views here.
@@ -15,25 +18,28 @@ from .seralizers import UserDetailSerializer
 def profile(request, user_pk):
     person = get_user_model().objects.get(pk=user_pk)
     serializer = UserDetailSerializer(person)
-    print('person',serializer)
     return Response(serializer.data)
 
 
 
-# @require_POST
-# def follow(request, user_pk):
-#     person = get_object_or_404(get_user_model(), pk=user_pk)
-#     user = request.user
-#     if person != user:
-#         if person.followers.filter(pk=user.pk).exists():
-#             person.followers.remove(user)
-#             is_followed = False
-#         else:
-#             person.followers.add(user)
-#             is_followed = True
-#         context = {
-#             'is_followed': is_followed,
-#             'followersnum': person.followers.count(),
-#             'followingnum': person.followings.count(),
-#         }
-#         return JsonResponse(context)
+@permission_classes([IsAuthenticated])
+def follow(request, user_pk):
+    print(request.META)
+    print(request.GET['id'])
+    print("##############################",request.user)
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+    user = request.user
+    # if person != user:
+    #     if person.followers.filter(pk=user.pk).exists():
+    #         person.followers.remove(user)
+    #         is_followed = False
+    #     else:
+    #         person.followers.add(user)
+    #         is_followed = True
+    #     return
+    #     context = {
+    #         'is_followed': is_followed,
+    #         'followersnum': person.followers.count(),
+    #         'followingnum': person.followings.count(),
+    #     }
+    #     return JsonResponse(context)
